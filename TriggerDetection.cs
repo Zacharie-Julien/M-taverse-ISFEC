@@ -1,23 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TriggerDetection : MonoBehaviour
 {
-    public GameObject player;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public float jumpForce = 522.0f; 
+     private void OnTriggerEnter(Collider other)
+    {        
+            Rigidbody rb = other.GetComponent<Rigidbody>();
 
-    // Update is called once per frame
-    void Update()
-    {
+            if (rb != null)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
         
-    }
-    public void OnTriggerEnter(Collider other) {
-        if(other.tag == "Player") {
-            print("Joueur trouvé");
-            // player.transform.translate
-        }
     }
 }

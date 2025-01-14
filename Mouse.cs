@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstPersonCamera : MonoBehaviour
+public class Mouse : MonoBehaviour
 {
 
     // Variables
@@ -10,15 +10,11 @@ public class FirstPersonCamera : MonoBehaviour
     public float mouseSensitivity = 2f;
     float cameraVerticalRotation = 0f;
 
-    bool lockedCursor = true;
-
-
     void Start()
     {
         // Lock and Hide the Cursor
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     
