@@ -1,15 +1,15 @@
 using UnityEngine;
+using Fusion;
 
-public class FirstPersonCamera : MonoBehaviour
+public class FirstPersonCamera : NetworkBehaviour
 {
     public Transform Target;
-
-    [Tooltip("Mose sensitivity")]
-    [SerializeField]
-    private float MouseSensitivity = 10f;
-
+    public float MouseSensitivity = 10f;
     private float verticalRotation;
     private float horizontalRotation;
+
+
+    public override void Spawned() {}
 
     void LateUpdate()
     {
@@ -18,7 +18,7 @@ public class FirstPersonCamera : MonoBehaviour
             return;
         }
 
-        transform.position = Target.position;
+        transform.position = new Vector3(Target.position.x, Target.position.y + 0.2f, Target.position.z);
 
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
