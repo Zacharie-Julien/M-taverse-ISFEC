@@ -1,28 +1,12 @@
-using Fusion;
-using Unity.VisualScripting;
 using UnityEngine;
+using Fusion;
 
 public class CubeUp : NetworkBehaviour
 {
 
-    private bool _upCubePressed = false;
-    
-    void Update()
+    public void cubeUp(Vector3 currentPosition)
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            _upCubePressed = true;
-        }
-    }
-
-    public override void FixedUpdateNetwork()
-    {
-        if (_upCubePressed)
-        {
-            gameObject.transform.Translate(new Vector3(0, 1, 0));    
-        }
-        
-        _upCubePressed = false;
+        gameObject.transform.position = currentPosition;
     }
 
     

@@ -1,10 +1,13 @@
 using UnityEngine;
+using Fusion;
+using Unity.VisualScripting;
 
-public class pickUpScript : MonoBehaviour
+public class pickUpScript : NetworkBehaviour
 {
     RaycastHit hit;
     GameObject lastHit;
     public GameObject holdPosition;
+    public bool isHit = false;
 
     public void Update()
     {
@@ -15,15 +18,30 @@ public class pickUpScript : MonoBehaviour
             lastHit = hit.transform.gameObject;
             hit.transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
 
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.E))
             {
-                hit.transform.position = holdPosition.transform.position;
-                hit.transform.rotation = holdPosition.transform.rotation;
+                isHit = true;
+            }else
+            {
+                isHit = false;
             }
 
         }else if (lastHit != null)
         {
             lastHit.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+    }
+
+    public override void FixedUpdateNetwork()
+    {   
+        if (isHit)
+        {
+            hit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+            hit.transform.position = holdPosition.transform.position;
+            hit.transform.rotation = holdPosition.transform.rotation;    
+        } else
+        {
+            lastHit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 }

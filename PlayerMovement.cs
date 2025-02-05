@@ -17,7 +17,7 @@ public class PlayerMovement : NetworkBehaviour
     public Camera Camera;
 
     private void Awake()
-    {
+    {   Cursor.visible = false;
         _controller = GetComponent<CharacterController>();
     }
 
