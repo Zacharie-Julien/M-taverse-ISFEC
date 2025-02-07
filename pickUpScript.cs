@@ -18,7 +18,7 @@ public class pickUpScript : NetworkBehaviour
             lastHit = hit.transform.gameObject;
             hit.transform.gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
 
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKey(KeyCode.Mouse0))
             {
                 isHit = true;
             }else
@@ -34,14 +34,17 @@ public class pickUpScript : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {   
-        if (isHit)
+        if (isHit && hit.transform.gameObject.CompareTag("isGrabbable"))
         {
             hit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             hit.transform.position = holdPosition.transform.position;
             hit.transform.rotation = holdPosition.transform.rotation;    
         } else
         {
-            lastHit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            if (lastHit != null)
+            {
+                lastHit.transform.gameObject.GetComponent<Rigidbody>().isKinematic = false;    
+            }
         }
     }
 }
